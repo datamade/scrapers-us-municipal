@@ -24,6 +24,8 @@ class LametroBillScraper(LegistarAPIBillScraper):
             return "2015"
         if action_date <  localize(datetime.datetime(2017, 7, 1)) :
             return "2016"
+        if action_date <  localize(datetime.datetime(2018, 7, 1)) :
+            return "2017"
 
     def sponsorships(self, matter_id) :
         for i, sponsor in enumerate(self.sponsors(matter_id)) :
