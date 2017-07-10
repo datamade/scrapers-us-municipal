@@ -28,7 +28,7 @@ class LametroBillScraper(LegistarAPIBillScraper):
         if action_date <  localize(datetime.datetime(2017, 7, 1)) :
             return "2016"
         if action_date <  localize(datetime.datetime(2018, 7, 1)) :
-            return "2017"                 
+            return "2017"
         else:
             raise ValueError("Invalid action date: {}".format(action_date))
 
