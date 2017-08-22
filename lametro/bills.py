@@ -25,7 +25,7 @@ class LametroBillScraper(LegistarAPIBillScraper):
         if action_date <  localize(datetime.datetime(2017, 7, 1)) :
             return "2016"
         if action_date <  localize(datetime.datetime(2018, 7, 1)) :
-            return "2017"
+            return "2017"                 
         else:
             raise ValueError("Invalid action date: {}".format(action_date))
 
@@ -49,7 +49,7 @@ class LametroBillScraper(LegistarAPIBillScraper):
         for action in self.history(matter_id) :
             action_date = action['MatterHistoryActionDate']
             action_description = action['MatterHistoryActionName'].strip()
-            responsible_org = action['MatterHistoryActionBodyName']
+            responsible_org = action['MatterHistoryActionBodyName'].strip()
             if responsible_org == "Board of Directors - Regular Board Meeting":
                 responsible_org = "Board of Directors"
 
