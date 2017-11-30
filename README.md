@@ -94,3 +94,28 @@ Before submitting a PR, please run `pupa update YOUR_CITY_SCRAPER`
 export DATABASE_URL=postgresql:///opencivicdata
 pupa update YOUR_CITY_SCRAPER
 ```
+
+### Making changes to this fork
+
+We want changes in this repo to all be rebased off `opencivicdata/scrapers-us-municipal`.
+
+To achieve this, first pull from origin of the fork.
+
+```bash
+git pull origin master
+```
+
+Then, make your changes and commit them locally. Next, rebase your changes onto
+upstream master.
+
+
+```bash
+git pull --rebase upstream master
+```
+
+Finally, force push your changes to the fork on Github.
+
+
+```bash
+git push -f origin master
+```
