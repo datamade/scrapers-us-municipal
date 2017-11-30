@@ -1,6 +1,8 @@
 municipal-scrapers
 ==================
 
+[![Build Status](https://travis-ci.org/datamade/scrapers-us-municipal.svg?branch=v0.0.32)](https://travis-ci.org/datamade/scrapers-us-municipal)
+
 DataMade's source for municipal scrapers.
 
 To find out more about the ins-and-outs of these scrapers, as well as how to create your own, head on over to [docs.opencivicdata.org's scraping page](http://docs.opencivicdata.org/en/latest/scrape/index.html).
