@@ -1,0 +1,2 @@
+class MiamiPersonScraper(object):
+    pass

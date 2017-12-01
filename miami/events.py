@@ -1,0 +1,2 @@
+class MiamiEventScraper(object):
+    pass

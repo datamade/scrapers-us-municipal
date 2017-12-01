@@ -1,0 +1,2 @@
+class MiamiBillScraper(object):
+    pass
