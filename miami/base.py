@@ -32,6 +32,7 @@ class ToArabic(str):
 
 
 class MiamiScraper(Scraper, requests.Session):
+    TIMEZONE = "US/Eastern"
 
     def __init__(self, *args, **kwargs) :
         super().__init__(*args, **kwargs)
@@ -46,3 +47,8 @@ class MiamiScraper(Scraper, requests.Session):
         page = lxml.html.fromstring(entry)
         page.make_links_absolute(url)
         return page
+
+    def toTime(self, text) :
+        time = datetime.datetime.strptime(text, self.date_format)
+        time = pytz.timezone(self.TIMEZONE).localize(time)
+        return time
