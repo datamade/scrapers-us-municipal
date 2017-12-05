@@ -72,7 +72,7 @@ class MiamiEventScraper(MiamiScraper):
                     people = nays[0].split(',')
 
                     for person in people:
-                        vote_event.yes(person)
+                        vote_event.no(person)
 
                 yield vote_event
 
