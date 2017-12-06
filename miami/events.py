@@ -24,7 +24,7 @@ class MiamiEventScraper(MiamiScraper):
         else:
             return '2017'
 
-    def bill(self, bill_link, classification):
+    def bill(self, bill_link, classification, event):
 
         bill_detail = self.lxmlize(detail_link)
 
@@ -74,7 +74,11 @@ class MiamiEventScraper(MiamiScraper):
                     for person in people:
                         vote_event.no(person)
 
+                event.add_vote_event(vote_event)
+
                 yield vote_event
+
+        event.add_bill(bill, note=classification)
 
         yield bill
 
@@ -159,15 +163,16 @@ class MiamiEventScraper(MiamiScraper):
                         subsection_number = '{0}.{1}'.format(int(section_number), subsection_text)
                         subsection_title = row.xpath("td[@class='Title']//text()")[0]
 
-                        sub_agenda_item = event.add_agenda_item(subsection_title)
+                        event.add_agenda_item(subsection_title)
 
+                        # Hmm ... need to add the bill to the event
                         if 'a resolution of' in subsection_title.lower():
                             detail_link = row.xpath("td[@class='Title']//a/@href")[0]
-                            yield from self.bill(detail_link, 'resolution')
+                            yield from self.bill(detail_link, 'resolution', event)
 
                         elif 'an ordinance of' in subsection_title.lower():
                             detail_link = row.xpath("td[@class='Title']//a/@href")[0]
-                            yield from self.bill(detail_link, 'ordinance')
+                            yield from self.bill(detail_link, 'ordinance', event)
             yield event
 
     def scrape(self):
