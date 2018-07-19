@@ -17,5 +17,5 @@
 5,20,35,50 * * * 0-4,6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/bills/_data/ lametro bills window=0.05 >> /tmp/lametro.log 2>&1'
 
 # Metro: Friday 
-0,15,30,45 * * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/events/_data/ lametro events --rpm=240 >> /tmp/lametro.log 2>&1'
-5,20,35,50 * * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/bills/_data/ lametro bills window=0 --rpm=1800 >> /tmp/lametro.log 2>&1'
+0,15,30,45 * * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/events/_data/ lametro events --rpm=0 >> /tmp/lametro.log 2>&1'
+5,20,35,50 * * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/bills/_data/ lametro bills window=0 --rpm=0 >> /tmp/lametro.log 2>&1'
