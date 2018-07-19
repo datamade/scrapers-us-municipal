@@ -118,3 +118,10 @@ git pull upstream master
 ```bash
 git push origin master
 ```
+
+# Handling unresolved bills
+For LA Metro, we have alerting set up to notify us if pupa is not able to resolve a board report associated with an agenda item. This is an important diagnostic tool to help us track down why some board reports are not getting scraped. 
+
+Some board reports are not getting scraped because they have not been made public and will not be made public. When LA Metro tells us that they will not make a board report public, we should "ignore" that alert in Sentry. Also add a comment that you were directed by LA Metro that this board report will not be made public.
+
+We take this approach instead of editing the scraper to ignore certain bills because it's possible that LA Metro may decide to change their mind about what to make public sometime in the future.
