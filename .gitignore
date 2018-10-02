@@ -52,6 +52,9 @@ nosetests.xml
 .pydevproject
 
 __pycache__
+
+venv
+
 /keyrings/live/pubring.gpg~
 /keyrings/live/pubring.kbx~
 /keyrings/live/secring.gpg
