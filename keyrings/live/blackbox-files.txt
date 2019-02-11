@@ -1,2 +1,3 @@
+lametro/secrets.py
 nyc/secrets.py
 pupa_settings.py
