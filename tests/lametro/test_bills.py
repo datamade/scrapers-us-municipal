@@ -26,6 +26,8 @@ def test_scraper(scraper, matter, public_private_bill_data, mocker):
     mocker.patch('lametro.LametroBillScraper.history', return_value=[])
     mocker.patch('lametro.LametroBillScraper.sponsorships', return_value=[])
     mocker.patch('lametro.LametroBillScraper.attachments', return_value=[])
+    mocker.patch('lametro.LametroBillScraper.topics', return_value=[])
+    mocker.patch('lametro.LametroBillScraper.relations', return_value=[])
     mocker.patch('lametro.LametroBillScraper.matter', return_value=matter)
 
     import requests
@@ -56,6 +58,8 @@ def test_private_scrape_dates(scraper, matter, intro_date, num_bills_scraped, mo
     mocker.patch('lametro.LametroBillScraper.history', return_value=[])
     mocker.patch('lametro.LametroBillScraper.sponsorships', return_value=[])
     mocker.patch('lametro.LametroBillScraper.attachments', return_value=[])
+    mocker.patch('lametro.LametroBillScraper.topics', return_value=[])
+    mocker.patch('lametro.LametroBillScraper.relations', return_value=[])
     mocker.patch('lametro.LametroBillScraper.matter', return_value=matter)
 
     scrape_results = []
