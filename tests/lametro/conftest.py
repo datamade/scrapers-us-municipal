@@ -9,33 +9,6 @@ def scraper():
     return scraper
 
 @pytest.fixture
-def history():
-    '''
-    Dictionary with pertinent info for a matter.
-    '''
-    history = {
-        'MatterHistoryMatterStatusId': 72, 
-        'MatterHistoryActionId': 383, 
-        'MatterHistoryActionBodyName': 'Board of Directors - Regular Board Meeting', 
-        'MatterHistoryActionText': 'A motion was made that this agenda item be APPROVED. The motion carried by the following vote:',
-        'MatterHistoryEventId': 1265, 
-        'MatterHistoryAgendaSequence': 64, 
-        'MatterHistoryActionBodyId': 138, 
-        'MatterHistoryLastModifiedUtc': '2018-01-19T17:01:37.72',
-        'MatterHistoryGuid': '993F8DD9-8E1C-4E4A-8C9E-D0FAD2E3DDA5',
-        'MatterHistoryActionName': 'APPROVED',
-        'MatterHistoryAgendaNumber': '30.',
-        'MatterHistoryPassedFlagName': 'Pass', 
-        'MatterHistoryId': 29112, 
-        'MatterHistoryActionDate': '2017-11-30T00:00:00',
-        'MatterHistoryRollCallFlag': 0,
-        'MatterHistoryPassedFlag': 1,
-        'MatterHistoryPassedFlagName': 'Pass',
-    }
-
-    return history
-
-@pytest.fixture
 def matter():
     '''
     Dictionary with pertinent info for a bill. Bill is public.
@@ -58,7 +31,7 @@ def matter():
         'MatterRestrictViewViaWeb': False,
         'MatterTitle': 'AUTHORIZE the Chief Executive Officer'
     }
-    
+
     return matter
 
 public_private_bill_data = [
