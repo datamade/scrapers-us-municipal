@@ -92,6 +92,8 @@ class LametroBillScraper(LegistarAPIBillScraper, Scraper):
     def actions(self, matter_id) :
         old_action = None
         for action in self.history(matter_id) :
+            print(type(action), "$$$$$")
+            # import pdb;pdb.set_trace()
             # Metro admin added an action with a classifcation of 'DISCUSSED (do not use).'
             # They requested that we do not pull in this data.
             action_description = action['MatterHistoryActionName'].strip()

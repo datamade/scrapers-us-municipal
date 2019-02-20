@@ -15,7 +15,7 @@ def test_is_restricted(scraper, matter, public_private_bill_data):
     assert scraper._is_restricted(matter) == assertion
 
 
-def test_scraper(scraper, matter, public_private_bill_data, mocker):
+def test_scraper(scraper, matter, public_private_bill_data, history, mocker):
     '''
     Test that the scraper correctly assigns the value of 'restrict_view'
     to bill extras.
@@ -23,6 +23,7 @@ def test_scraper(scraper, matter, public_private_bill_data, mocker):
     field, value, assertion = public_private_bill_data
     matter[field] = value
     matter_id = matter['MatterFile']
+    mocker.patch('lametro.LametroBillScraper.history', return_value=[history])
     mocker.patch('lametro.LametroBillScraper.matter', return_value=matter)
 
     for bill in scraper.scrape(matter_ids=matter_id):
@@ -38,7 +39,7 @@ def test_scraper(scraper, matter, public_private_bill_data, mocker):
     ('2015-07-01T00:00:00', 0),
     ('2014-07-01T00:00:00', 0),
 ])
-def test_private_scrape_dates(scraper, matter, intro_date, num_bills_scraped, mocker):
+def test_private_scrape_dates(scraper, matter, intro_date, num_bills_scraped, history, mocker):
     '''
     Test that the scraper skips early private bills (i.e., introduced before
     the START_DATE_PRIVATE_SCRAPE timestamp) and also scrapes later ones.
@@ -46,6 +47,7 @@ def test_private_scrape_dates(scraper, matter, intro_date, num_bills_scraped, mo
     matter['MatterIntroDate'] = intro_date
     matter['MatterRestrictViewViaWeb'] = True
     matter_id = matter['MatterFile']
+    mocker.patch('lametro.LametroBillScraper.history', return_value=[history])
     mocker.patch('lametro.LametroBillScraper.matter', return_value=matter)
 
     scrape_results = []
