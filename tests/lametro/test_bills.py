@@ -1,5 +1,9 @@
 import datetime
+import re
+
 import pytest
+import requests_mock
+import requests
 
 from pupa.scrape.bill import Bill
 
@@ -23,20 +27,17 @@ def test_scraper(scraper, matter, public_private_bill_data, mocker):
     field, value, assertion = public_private_bill_data
     matter[field] = value
     matter_id = matter['MatterFile']
-    mocker.patch('lametro.LametroBillScraper.history', return_value=[])
-    mocker.patch('lametro.LametroBillScraper.sponsorships', return_value=[])
-    mocker.patch('lametro.LametroBillScraper.attachments', return_value=[])
-    mocker.patch('lametro.LametroBillScraper.topics', return_value=[])
-    mocker.patch('lametro.LametroBillScraper.relations', return_value=[])
-    mocker.patch('lametro.LametroBillScraper.matter', return_value=matter)
 
-    import requests
-    mock_response = mocker.MagicMock(spec=requests.Response)
-    mocker.patch('requests.get', return_value=mock_response)
+    with requests_mock.Mocker() as m:
+        matcher = re.compile('webapi.legistar.com')
+        m.get(matcher, json={}, status_code=200)
 
-    for bill in scraper.scrape(matter_ids=matter_id):
-        if type(bill) == Bill:
-            assert bill.extras['restrict_view'] == assertion
+        mocker.patch('lametro.LametroBillScraper.matter', return_value=matter)
+        mocker.patch('lametro.LametroBillScraper.text', return_value='')
+
+        for bill in scraper.scrape(matter_ids=matter_id):
+            if type(bill) == Bill:
+                assert bill.extras['restrict_view'] == assertion
 
 
 @pytest.mark.parametrize('intro_date,num_bills_scraped', [
@@ -55,16 +56,17 @@ def test_private_scrape_dates(scraper, matter, intro_date, num_bills_scraped, mo
     matter['MatterIntroDate'] = intro_date
     matter['MatterRestrictViewViaWeb'] = True
     matter_id = matter['MatterFile']
-    mocker.patch('lametro.LametroBillScraper.history', return_value=[])
-    mocker.patch('lametro.LametroBillScraper.sponsorships', return_value=[])
-    mocker.patch('lametro.LametroBillScraper.attachments', return_value=[])
-    mocker.patch('lametro.LametroBillScraper.topics', return_value=[])
-    mocker.patch('lametro.LametroBillScraper.relations', return_value=[])
-    mocker.patch('lametro.LametroBillScraper.matter', return_value=matter)
 
-    scrape_results = []
-    for bill in scraper.scrape(matter_ids=matter_id):
-        if type(bill) == Bill:
-            scrape_results.append(bill)
+    with requests_mock.Mocker() as m:
+        matcher = re.compile('webapi.legistar.com')
+        m.get(matcher, json={}, status_code=200)
 
-    assert len(scrape_results) == num_bills_scraped
+        mocker.patch('lametro.LametroBillScraper.matter', return_value=matter)
+        mocker.patch('lametro.LametroBillScraper.text', return_value='')
+
+        scrape_results = []
+        for bill in scraper.scrape(matter_ids=matter_id):
+            if type(bill) == Bill:
+                scrape_results.append(bill)
+
+        assert len(scrape_results) == num_bills_scraped
