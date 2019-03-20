@@ -1,25 +1,45 @@
 # /etc/cron.d/scrapers-us-municipal-crontask
+APPDIR=/home/datamade/scrapers-us-municipal
+PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
+
 # New York City
-0 5 * * * datamade /usr/bin/flock /tmp/nycscrape.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update nyc >> /tmp/nyc.log 2>&1'
-0,15,30,45 * * * * datamade /usr/bin/flock -n /tmp/nycevents.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/events/_data/ nyc events window=0.05 >> /tmp/nyc.log 2>&1'
-10,25,40,55 * * * * datamade /usr/bin/flock -n /tmp/nycbills.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/bills/_data/ nyc bills window=0.05 >> /tmp/nyc.log 2>&1'
+0 5 * * * datamade /usr/bin/flock /tmp/nycscrape.lock -c 'cd $APPDIR && $PUPADIR update nyc >> /tmp/nyc.log 2>&1'
+0,15,30,45 * * * * datamade /usr/bin/flock -n /tmp/nycevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ nyc events window=0.05 >> /tmp/nyc.log 2>&1'
+10,25,40,55 * * * * datamade /usr/bin/flock -n /tmp/nycbills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ nyc bills window=0.05 >> /tmp/nyc.log 2>&1'
 
 # Chicago
-0 2 * * * datamade /usr/bin/flock /tmp/chicagobills.lock /usr/bin/flock /tmp/chicagoevents.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update chicago >> /tmp/chicago.log 2>&1'
-10,25,40,55 * * * * datamade /usr/bin/flock /tmp/chicagoevents.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/events/_data/ chicago events window=0.05 >> /tmp/chicago.log 2>&1'
-5,20,35,50 * * * * datamade /usr/bin/flock -n /tmp/chicagobills.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/bills/_data/ chicago bills window=0.05 >> /tmp/chicago.log 2>&1'
+0 2 * * * datamade /usr/bin/flock /tmp/chicagobills.lock /usr/bin/flock /tmp/chicagoevents.lock -c 'cd $APPDIR && $PUPADIR update chicago >> /tmp/chicago.log 2>&1'
+10,25,40,55 * * * * datamade /usr/bin/flock /tmp/chicagoevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ chicago events window=0.05 >> /tmp/chicago.log 2>&1'
+5,20,35,50 * * * * datamade /usr/bin/flock -n /tmp/chicagobills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ chicago bills window=0.05 >> /tmp/chicago.log 2>&1'
 
 # Metro: Nightly
-5 0 * * * datamade /usr/bin/flock /tmp/metrobills.lock /usr/bin/flock /tmp/metroevents.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update lametro >> /tmp/lametro.log 2>&1 && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update lametro bills window=0 >> /tmp/lametro.log 2>&1'
+# Full scrapes
+5 0 * * * datamade /usr/bin/flock /tmp/metrobills.lock /usr/bin/flock /tmp/metroevents.lock -c 'cd $APPDIR && $PUPADIR update lametro >> /tmp/lametro.log 2>&1 && $PUPADIR update lametro bills window=0 >> /tmp/lametro.log 2>&1'
 
 # Metro: Sunday to Thursday
-0,15,30,45 * * * 0-4,6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/events/_data/ lametro events window=0.05 >> /tmp/lametro.log 2>&1'
-5,20,35,50 * * * 0-4,6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/bills/_data/ lametro bills window=0.05 >> /tmp/lametro.log 2>&1'
+# Windowed scrapes
+0,15,30,45 * * * 0-4 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ lametro events window=0.05 >> /tmp/lametro.log 2>&1'
+5,20,35,50 * * * 0-4 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ lametro bills window=0.05 >> /tmp/lametro.log 2>&1'
 
-# Metro: Friday, midnight to 3:50 pm
-0,15,30,45 0-15 * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/events/_data/ lametro events window=0.05 >> /tmp/lametro.log 2>&1'
-5,20,35,50 0-15 * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/bills/_data/ lametro bills window=0.05 >> /tmp/lametro.log 2>&1'
+# Metro: Friday, midnight to 8:50 pm UTC
+# Windowed scrapes
+0,15,30,45 0-20 * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ lametro events window=0.05 >> /tmp/lametro.log 2>&1'
+5,20,35,50 0-20 * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ lametro bills window=0.05 >> /tmp/lametro.log 2>&1'
 
-# Metro: Friday, 4:00 pm to 11:45 pm
-0,15,30,45 16-23 * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/events/_data/ lametro events --rpm=0 >> /tmp/lametro.log 2>&1'
-5,35 16-23 * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd /home/datamade/scrapers-us-municipal && /home/datamade/.virtualenvs/opencivicdata/bin/pupa update --datadir=/cache/bills/_data/ lametro bills window=0 --rpm=0 >> /tmp/lametro.log 2>&1'
+# Metro: Friday, 9:00 pm UTC to Saturday, 5:50 am UTC
+# Full scrapes
+0 21-23 * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ lametro events --rpm=0 >> /tmp/lametro.log 2>&1'
+5 21-23 * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ lametro bills window=0 --rpm=0 >> /tmp/lametro.log 2>&1'
+0 0-5 * * 6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ lametro events --rpm=0 >> /tmp/lametro.log 2>&1'
+5 0-5 * * 6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ lametro bills window=0 --rpm=0 >> /tmp/lametro.log 2>&1'
+
+# Windowed scrapes
+30,45 21-23 * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ lametro events window=0.05 >> /tmp/lametro.log 2>&1'
+35,50 21-23 * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ lametro bills window=0.05 >> /tmp/lametro.log 2>&1'
+30,45 0-5 * * 6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ lametro events window=0.05 >> /tmp/lametro.log 2>&1'
+35,50 0-5 * * 6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ lametro bills window=0.05 >> /tmp/lametro.log 2>&1'
+
+# Metro: Saturday, 6:00 am UTC 11:50 pm UTC
+# Windowed scrapes
+0,15,30,45 6-23 * * 6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ lametro events window=0.05 >> /tmp/lametro.log 2>&1'
+5,20,35,50 6-23 * * 6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ lametro bills window=0.05 >> /tmp/lametro.log 2>&1'
