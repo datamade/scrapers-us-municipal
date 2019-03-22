@@ -43,3 +43,4 @@ PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
 # Windowed scrapes
 0,15,30,45 6-23 * * 6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ lametro events window=0.05 >> /tmp/lametro.log 2>&1'
 5,20,35,50 6-23 * * 6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ lametro bills window=0.05 >> /tmp/lametro.log 2>&1'
+ 
