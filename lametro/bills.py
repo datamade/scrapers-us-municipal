@@ -19,7 +19,8 @@ class LametroBillScraper(LegistarAPIBillScraper, Scraper):
     VOTE_OPTIONS = {'aye' : 'yes',
                     'nay' : 'no',
                     'recused' : 'abstain',
-                    'present' : 'abstain'}
+                    'present' : 'abstain',
+                    'conflict': 'abstain'}
 
     START_DATE_PRIVATE_SCRAPE = '2016-07-01'
 
@@ -319,7 +320,8 @@ ACTION_CLASSIFICATION = {'WITHDRAWN' : 'withdrawal',
                          'CARRIED OVER' : 'deferral',
                          'RECEIVED' : 'receipt',
                          'REFERRED' : 'referral-committee',
-                         'FORWARDED DUE TO ABSENCES AND CONFLICTS' : 'committee-passage'}
+                         'FORWARDED DUE TO ABSENCES AND CONFLICTS' : 'committee-passage',
+                         'NO ACTION TAKEN': 'filing'}
 
 BILL_TYPES = {'Contract' : None,
               'Budget' : None,
