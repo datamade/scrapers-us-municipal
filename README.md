@@ -15,14 +15,19 @@ Changes should only be made to this fork if they are related to deployment, conf
 
 As such, we want changes in this repo to all be rebased off `opencivicdata/scrapers-us-municipal`.
 
-To achieve this, first pull from origin of the fork.
+First, set up your upstream branch.
+
+```bash
+git remote add upstream https://github.com/opencivicdata/scrapers-us-municipal.git
+```
+
+Then pull from origin of this fork.
 
 ```bash
 git pull origin master
 ```
 
-Then, make your changes and commit them locally. Next, rebase your changes onto
-upstream master.
+Next, rebase your changes onto upstream master.
 
 
 ```bash
