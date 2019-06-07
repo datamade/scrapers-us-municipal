@@ -27,7 +27,7 @@ Then pull from origin of this fork.
 git pull origin master
 ```
 
-Next, rebase your changes onto upstream master.
+Commit your local changes, if any. Next, rebase your changes onto upstream master.
 
 
 ```bash
