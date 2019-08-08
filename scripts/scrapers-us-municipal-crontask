@@ -8,9 +8,13 @@ PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
 10,25,40,55 * * * * datamade /usr/bin/flock -n /tmp/nycbills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ nyc bills window=0.05 >> /tmp/nyc.log 2>&1'
 
 # Chicago
-0 2 * * * datamade /usr/bin/flock /tmp/chicagobills.lock /usr/bin/flock /tmp/chicagoevents.lock -c 'cd $APPDIR && $PUPADIR update chicago >> /tmp/chicago.log 2>&1'
-10,25,40,55 * * * * datamade /usr/bin/flock /tmp/chicagoevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ chicago events window=0.05 >> /tmp/chicago.log 2>&1'
-5,20,35,50 * * * * datamade /usr/bin/flock -n /tmp/chicagobills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ chicago bills window=0.05 >> /tmp/chicago.log 2>&1'
+# Nightly, do a larger scrape and populate production, staging,
+# and the imago API db
+0 2 * * * datamade /usr/bin/flock /tmp/chicagobills.lock /usr/bin/flock /tmp/chicagoevents.lock -c 'cd $APPDIR && $PUPADIR update chicago --scrape && SHARED_DB=True DATABASE_URL=postgis://datamade:chicago.councilmatic.org/chicago_2_5 $PUPADIR update chicago --import && SHARED_DB=True DATABASE_URL=postgis://datamade:chicago.councilmatic.org/chicago_staging_2_5 $PUPADIR update chicago --import && $PUPADIR update chicago --import >> /tmp/chicago.log 2>&1'
+
+# Scrape bills and events every 15 minutes into the production db
+10,25,40,55 * * * * datamade /usr/bin/flock /tmp/chicagoevents.lock -c 'cd $APPDIR && SHARED_DB=True DATABASE_URL=postgis://datamade:chicago.councilmatic.org/chicago_2_5 $PUPADIR update --datadir=/cache/events/_data/ chicago events window=0.05 >> /tmp/chicago.log 2>&1'
+5,20,35,50 * * * * datamade /usr/bin/flock -n /tmp/chicagobills.lock -c 'cd $APPDIR && DATABASE_URL=postgis://datamade:chicago.councilmatic.org/chicago_2_5 $PUPADIR update --datadir=/cache/bills/_data/ chicago bills window=0.05 >> /tmp/chicago.log 2>&1'
 
 # Metro: Nightly
 # Full scrapes

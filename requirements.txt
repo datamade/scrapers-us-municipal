@@ -1,8 +1,9 @@
-https://github.com/opencivicdata/python-opencivicdata-django/zipball/master
+https://github.com/opencivicdata/python-opencivicdata-django/archive/master.zip
 pupa==0.9.0
-https://github.com/opencivicdata/python-legistar-scraper/zipball/master
+https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
 lxml
 sh 
 pytest==4.2.0
 pytest-mock==1.10.1
 requests-mock==1.5.2
+https://github.com/datamade/django-councilmatic/archive/master.zip
