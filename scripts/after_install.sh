@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Set useful variables
 export APP_PATH=/home/datamade/scrapers-us-municipal
