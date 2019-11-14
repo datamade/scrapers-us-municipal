@@ -1,1 +1,10 @@
-psycopg2-binary>=2.7,<2.8
+https://github.com/datamade/django-councilmatic/archive/la_metro_accomodations.zip
+https://github.com/opencivicdata/python-opencivicdata-django/archive/master.zip
+https://github.com/opencivicdata/pupa/archive/master.zip
+https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
+lxml
+sh 
+pytest==4.2.0
+pytest-mock==1.10.1
+requests-mock==1.5.2
+raven==6.10
