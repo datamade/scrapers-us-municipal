@@ -9,7 +9,10 @@ from pupa.utils import _make_pseudo_id
 
 from legistar.bills import LegistarBillScraper, LegistarAPIBillScraper
 
-from .secrets import TOKEN
+try:
+    from .secrets import TOKEN
+except:
+    TOKEN = None
 
 class LametroBillScraper(LegistarAPIBillScraper, Scraper):
     BASE_URL = 'https://webapi.legistar.com/v1/metro'
@@ -45,7 +48,8 @@ class LametroBillScraper(LegistarAPIBillScraper, Scraper):
         '''
         super().__init__(*args, **kwargs)
 
-        self.params = {'Token': TOKEN}
+        if TOKEN:
+            self.params = {'Token': TOKEN}
         self.scrape_restricted = True
 
     def _is_restricted(self, matter):
