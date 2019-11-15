@@ -1,7 +1,7 @@
-https://github.com/datamade/django-councilmatic/archive/la_metro_accomodations.zip
 https://github.com/opencivicdata/python-opencivicdata-django/archive/master.zip
 https://github.com/opencivicdata/pupa/archive/master.zip
 https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
+https://github.com/datamade/django-councilmatic/archive/la_metro_accomodations.zip
 lxml
 sh
 pytest==4.2.0
