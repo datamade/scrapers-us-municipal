@@ -39,6 +39,7 @@ if SHARED_DB:
         'pupa',
         'councilmatic_core'
     )
+    OCD_CITY_COUNCIL_NAME = None
 
 
 LOGGING = {
