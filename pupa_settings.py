@@ -1,6 +1,7 @@
 import os
 from raven.contrib.django.client import DjangoClient
 
+
 class OCDClient(DjangoClient):
 
     def send(self, **kwargs):
@@ -32,6 +33,14 @@ DATABASE_URL = os.environ.get('DATABASE_URL', 'postgis://opencivicdata:@localhos
 
 SHARED_DB = os.environ.get('SHARED_DB') == 'True'
 if SHARED_DB:
+    # Heroku's DATABASE_URL will always indicate a Postgres engine, even if
+    # PostGIS is installed. If we're scraping into a Councilmatic database,
+    # then it must be corrected.
+    if DATABASE_URL.startswith('postgres:'):
+        engine, *parts = DATABASE_URL.split(':')
+        parts = ['postgis'] + parts
+        DATABASE_URL = ':'.join(parts)
+
     INSTALLED_APPS = (
         'django.contrib.contenttypes',
         'opencivicdata.core.apps.BaseConfig',
@@ -77,7 +86,7 @@ LOGGING = {
             'handlers': ['default', 'sentry'], 'level': 'WARN', 'propagate': False
         },
         'django': {
-            'handlers': ['console'],
+            'handlers': ['default'],
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
         },
     },
