@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update && \
     apt-get install -y libxml2-dev libxslt1-dev gdal-bin
-    
+
 RUN mkdir /app
 WORKDIR /app
 

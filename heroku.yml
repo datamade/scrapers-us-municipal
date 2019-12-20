@@ -1,0 +1,11 @@
+# Define your application's Docker containers.
+build:
+  docker:
+    web: Dockerfile
+# The command that runs your application. Replace 'app' with the name of your app.
+run:
+  web:
+    command:
+      - pupa update --rpm=600 lametro people
+      - pupa update --rpm=600 lametro bills window=30
+      - pupa update --rpm=600 lametro events

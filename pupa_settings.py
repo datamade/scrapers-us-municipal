@@ -76,5 +76,9 @@ LOGGING = {
         'boto': {
             'handlers': ['default', 'sentry'], 'level': 'WARN', 'propagate': False
         },
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
     },
 }
