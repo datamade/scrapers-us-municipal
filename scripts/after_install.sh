@@ -30,7 +30,3 @@ $VIRTUALENV/bin/pip install -r $APP_PATH/requirements.txt --upgrade
 mv /home/datamade/scrapers-us-municipal/scripts/la-metro-crontask /etc/cron.d/la-metro-crontask
 chown root.root /etc/cron.d/la-metro-crontask
 chmod 644 /etc/cron.d/la-metro-crontask
-
-# Create and update permissions on logfile
-touch /tmp/lametro.log
-chown datamade.www-data /tmp/lametro.log
