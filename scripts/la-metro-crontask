@@ -1,0 +1,35 @@
+# /etc/cron.d/la-metro-crontask
+APPDIR=/home/datamade/scrapers-us-municipal
+PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
+
+# Metro: Nightly
+# Full scrapes
+5 0 * * * datamade /usr/bin/flock /tmp/metrobills.lock /usr/bin/flock /tmp/metroevents.lock $APPDIR/scripts/metro/full-scrape.sh >> /tmp/lametro.log
+
+# Metro: Sunday to Thursday
+# Windowed scrapes
+0,15,30,45 * * * 0-4 datamade /usr/bin/flock -n /tmp/metroevents.lock -c "WINDOW=0.05 $APPDIR/scripts/metro/windowed-event-scrape.sh" >> /tmp/lametro.log
+5,20,35,50 * * * 0-4 datamade /usr/bin/flock -n /tmp/metrobills.lock -c "WINDOW=0.05 $APPDIR/scripts/metro/windowed-bill-scrape.sh" >> /tmp/lametro.log
+
+# Metro: Friday, midnight to 8:50 pm UTC
+# Windowed scrapes
+0,15,30,45 0-20 * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c "WINDOW=0.05 $APPDIR/scripts/metro/windowed-event-scrape.sh" >> /tmp/lametro.log
+5,20,35,50 0-20 * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c "WINDOW=0.05 $APPDIR/scripts/metro/windowed-bill-scrape.sh" >> /tmp/lametro.log
+
+# Metro: Friday, 9:00 pm UTC to Saturday, 5:50 am UTC
+# Full scrapes
+0 21-23 * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c $APPDIR/scripts/metro/fast-full-event-scrape.sh >> /tmp/lametro.log
+5 21-23 * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c $APPDIR/scripts/metro/fast-full-bill-scrape.sh >> /tmp/lametro.log
+0 0-5 * * 6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c $APPDIR/scripts/metro/fast-full-event-scrape.sh >> /tmp/lametro.log
+5 0-5 * * 6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c $APPDIR/scripts/metro/fast-full-bill-scrape.sh >> /tmp/lametro.log
+
+# Windowed scrapes
+30,45 21-23 * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c "WINDOW=1 $APPDIR/scripts/metro/windowed-event-scrape.sh" >> /tmp/lametro.log
+35,50 21-23 * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c "WINDOW=1 $APPDIR/scripts/metro/windowed-bill-scrape.sh" >> /tmp/lametro.log
+30,45 0-5 * * 6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c "WINDOW=1 $APPDIR/scripts/metro/windowed-event-scrape.sh" >> /tmp/lametro.log
+35,50 0-5 * * 6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c "WINDOW=1 $APPDIR/scripts/metro/windowed-bill-scrape.sh" >> /tmp/lametro.log
+
+# Metro: Saturday, 6:00 am UTC 11:50 pm UTC
+# Windowed scrapes
+0,15,30,45 0-20 * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c "WINDOW=0.05 $APPDIR/scripts/metro/windowed-event-scrape.sh" >> /tmp/lametro.log
+5,20,35,50 0-20 * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c "WINDOW=0.05 $APPDIR/scripts/metro/windowed-bill-scrape.sh" >> /tmp/lametro.log
