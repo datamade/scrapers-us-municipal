@@ -1,5 +1,7 @@
-django>=2.1,<2.2
+django>=2.2,<2.3
+# Add extras to BillDocument
 https://github.com/opencivicdata/python-opencivicdata/archive/7203a5ecf5adcbbebbe79a8e192a693266d2203b.zip
+# Add family_name to Person schema, in line with OCD models
 https://github.com/opencivicdata/pupa/archive/53520bb71c8975614aa0a07ffd1f1124e06187ac.zip
 https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
 https://github.com/datamade/django-councilmatic/archive/la_metro_accomodations.zip
@@ -9,3 +11,4 @@ pytest==4.2.0
 pytest-mock==1.10.1
 requests-mock==1.5.2
 raven==6.10
+requests[security]
