@@ -31,5 +31,5 @@ PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
 
 # Metro: Saturday, 6:00 am UTC 11:50 pm UTC
 # Windowed scrapes
-0,15,30,45 0-20 * * 5 datamade /usr/bin/flock -n /tmp/metroevents.lock -c "WINDOW=0.05 $APPDIR/scripts/lametro/windowed-event-scrape.sh" >> /tmp/lametro.log
-5,20,35,50 0-20 * * 5 datamade /usr/bin/flock -n /tmp/metrobills.lock -c "WINDOW=0.05 $APPDIR/scripts/lametro/windowed-bill-scrape.sh" >> /tmp/lametro.log
+0,15,30,45 6-23 * * 6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c "WINDOW=0.05 $APPDIR/scripts/lametro/windowed-event-scrape.sh" >> /tmp/lametro.log
+5,20,35,50 6-23 * * 6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c "WINDOW=0.05 $APPDIR/scripts/lametro/windowed-bill-scrape.sh" >> /tmp/lametro.log
