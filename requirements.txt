@@ -1,8 +1,12 @@
 django>=2.2,<2.3
+
 # Add extras to BillDocument
 https://github.com/opencivicdata/python-opencivicdata/archive/7203a5ecf5adcbbebbe79a8e192a693266d2203b.zip
-# Add family_name to Person schema, in line with OCD models
-https://github.com/opencivicdata/pupa/archive/53520bb71c8975614aa0a07ffd1f1124e06187ac.zip
+
+# Add family_name to Person schema, in line with OCD models & run all scrapers
+# on bare pupa update commands
+https://github.com/opencivicdata/pupa/archive/b87ef9c6f45bb284acc29042e7ad498fffdde26d.zip
+
 https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
 https://github.com/datamade/django-councilmatic/archive/la_metro_accomodations.zip
 lxml

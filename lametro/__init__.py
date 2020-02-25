@@ -15,9 +15,6 @@ class Lametro(Jurisdiction):
         "people": LametroPersonScraper,
         "events": LametroEventScraper,
     }
-    # TODO: Why does this work?
-    # https://github.com/opencivicdata/pupa/compare/c0dbe820821caa66f1cb02675dfdcd3df22307b7..53520bb71c8975614aa0a07ffd1f1124e06187ac#diff-9f9db3d52f956fdfed1e2d0a6471023dR304
-    default_scrapers = scrapers
 
     legislative_sessions = []
     for year in range(2014, 2020):
