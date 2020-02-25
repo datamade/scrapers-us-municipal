@@ -15,6 +15,7 @@ class Lametro(Jurisdiction):
         "people": LametroPersonScraper,
         "events": LametroEventScraper,
     }
+    default_scrapers = scrapers
 
     legislative_sessions = []
     for year in range(2014, 2020):
