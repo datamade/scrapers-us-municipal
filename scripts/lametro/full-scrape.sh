@@ -11,6 +11,7 @@ $PUPADIR update lametro --scrape
 # TODO: Uncomment this before production deployment.
 # $PUPADIR update lametro --import
 # TODO: Update database URL before production deployment on remote server.
+SHARED_DB=True DATABASE_URL=postgis://datamade@localhost/lametro $PUPADIR update lametro --import
 SHARED_DB=True DATABASE_URL=postgis://datamade@localhost/lametro_staging $PUPADIR update lametro --import
 
 # Scrape all bills.
@@ -18,4 +19,5 @@ $PUPADIR update lametro --scrape bills window=0
 # TODO: Uncomment this before production deployment.
 # $PUPADIR update lametro --import
 # TODO: Update database URL before production deployment on remote server.
+SHARED_DB=True DATABASE_URL=postgis://datamade@localhost/lametro $PUPADIR update lametro --import
 SHARED_DB=True DATABASE_URL=postgis://datamade@localhost/lametro_staging $PUPADIR update lametro --import
