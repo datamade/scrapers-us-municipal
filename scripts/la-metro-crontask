@@ -10,7 +10,7 @@ PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
 
 # Full scrape
 
-5 0 * * * datamade /usr/bin/flock /tmp/metrobills.lock /usr/bin/flock /tmp/metroevents.lock $APPDIR/scripts/lametro/full-scrape.sh >> /tmp/lametro.log
+30 14 * * * datamade /usr/bin/flock /tmp/metrobills.lock /usr/bin/flock /tmp/metroevents.lock $APPDIR/scripts/lametro/full-scrape.sh >> /tmp/lametro.log
 
 # --- SUNDAY THROUGH THURSDAY ---
 
