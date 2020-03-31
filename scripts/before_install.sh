@@ -9,8 +9,7 @@ touch /tmp/lametro.log
 chown datamade.www-data /tmp/lametro.log
 
 # Create directory for scraped data
-mkdir -p /cache
-chown -R datamade.www-data /cache
+(mkdir /cache >> /dev/null 2>&1 && chown -R datamade.www-data /cache) || echo 'Cache directory already exists'
 
 # Decrypt files encrypted with blackbox
 cd /opt/codedeploy-agent/deployment-root/$DEPLOYMENT_GROUP_ID/$DEPLOYMENT_ID/deployment-archive/ && chown -R datamade.datamade . && sudo -H -u datamade blackbox_postdeploy
