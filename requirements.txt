@@ -2,7 +2,7 @@ django>=2.2,<2.3
 opencivicdata>=3.1.0
 pupa==0.10.1
 https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
-https://github.com/datamade/django-councilmatic/archive/la_metro_accomodations.zip
+django-councilmatic==2.5.5
 lxml
 sh
 pytest==4.2.0
