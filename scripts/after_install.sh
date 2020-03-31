@@ -6,7 +6,8 @@ export APP_PATH=/home/datamade/scrapers-us-municipal
 export VIRTUALENV=/home/datamade/.virtualenvs/opencivicdata
 
 # Create virtual environment
-python3 -m venv $VIRTUALENV
+# TODO: Determine why this fails on the OCD server
+# python3 -m venv $VIRTUALENV
 
 # Make sure everything you'd expect is owned by the datamade user
 chown -R datamade.www-data /home/datamade
