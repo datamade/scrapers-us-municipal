@@ -6,7 +6,9 @@ export APP_PATH=/home/datamade/scrapers-us-municipal
 export VIRTUALENV=/home/datamade/.virtualenvs/opencivicdata
 
 # Create virtual environment
-# TODO: Determine why this fails on the OCD server
+# TODO: Determine why this fails on the OCD server. Running the command by hand
+# does not produce the same error. See this thread:
+# https://github.com/pypa/virtualenv/issues/1059
 # python3 -m venv $VIRTUALENV
 
 # Make sure everything you'd expect is owned by the datamade user
