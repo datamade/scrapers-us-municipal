@@ -1,11 +1,18 @@
-FROM        sunlightlabs/pupa:latest
-MAINTAINER  Paul R. Tagliamonte <paultag@sunlightfoundation.com>
+FROM python:3.6-slim-stretch
+LABEL maintainer "DataMade <info@datamade.us>"
 
-RUN mkdir -p /opt/sunlightfoundation.com/
-ADD . /opt/sunlightfoundation.com/scrapers-us-municipal/
-RUN echo "deb-src http://debian.lcs.mit.edu/debian/ unstable main" >> /etc/apt/sources.list
-RUN apt-get update && apt-get build-dep python3-lxml -y
-RUN pip3 install lxml
-RUN pip3 install -r /opt/sunlightfoundation.com/scrapers-us-municipal/requirements.txt
+ENV PYTHONUNBUFFERED=1
 
-RUN echo "/opt/sunlightfoundation.com/scrapers-us-municipal/" > /usr/lib/python3/dist-packages/scrapers-us-municipal.pth
+RUN apt-get update && \
+    apt-get install -y libxml2-dev libxslt1-dev gdal-bin
+    
+RUN mkdir /app
+WORKDIR /app
+
+COPY ./requirements.txt /app/requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+COPY . /app
+
+ENTRYPOINT ["/app/docker-entrypoint.sh"]

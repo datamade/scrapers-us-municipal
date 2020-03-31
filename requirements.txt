@@ -1,11 +1,12 @@
-django>=2.1,<2.2
-https://github.com/opencivicdata/python-opencivicdata-django/archive/2.5.0.zip
-pupa==0.9.0
+django>=2.2,<2.3
+opencivicdata>=3.1.0
+pupa==0.10.1
 https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
+django-councilmatic==2.5.5
 lxml
 sh
 pytest==4.2.0
 pytest-mock==1.10.1
 requests-mock==1.5.2
-django-councilmatic==2.5.4
 raven==6.10
+requests[security]
