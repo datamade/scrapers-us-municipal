@@ -5,8 +5,5 @@ exec 2>&1
 
 cd $APPDIR
 $PUPADIR update --datadir=/cache/events/_data/ lametro --scrape events --rpm=0
-# TODO: Uncomment this before production deployment.
-# $PUPADIR update --datadir=/cache/events/_data/ lametro --import
-# TODO: Update database URL before production deployment on remote server.
-SHARED_DB=True DATABASE_URL=postgis://datamade@localhost/lametro $PUPADIR update --datadir=/cache/events/_data/ lametro --import
-SHARED_DB=True DATABASE_URL=postgis://datamade@localhost/lametro_staging $PUPADIR update --datadir=/cache/events/_data/ lametro --import
+SHARED_DB=True DATABASE_URL=postgis://datamade@3.93.9.229/lametro $PUPADIR update --datadir=/cache/events/_data/ lametro --import
+$PUPADIR update --datadir=/cache/events/_data/ lametro --import
