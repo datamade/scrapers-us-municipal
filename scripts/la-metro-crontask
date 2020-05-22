@@ -54,11 +54,15 @@ PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
 30,45 0-5 * * 6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c "WINDOW=1 $APPDIR/scripts/lametro/windowed-event-scrape.sh" >> /tmp/lametro.log
 35,50 0-5 * * 6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c "WINDOW=1 $APPDIR/scripts/lametro/windowed-bill-scrape.sh" >> /tmp/lametro.log
 
-# UTC: 12:05 am
-# CST: 6:05 pm
-# CDT: 7:05 pm
-
 # --- SATURDAY ---
+
+# UTC: 12:05 am
+# CST: 6:05 pm (previous day)
+# CDT: 7:05 pm (previous day)
+
+# Person scrape, in lieu of nightly full scrape
+
+5 0 * * 6 datamade $APPDIR/scripts/lametro/person-scrape.sh >> /tmp/lametro.log
 
 # UTC: 6:00 am to 11:50 pm Saturday
 # CST: 12:00 am to 5:50 pm Saturday
@@ -68,7 +72,3 @@ PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
 
 0,15,30,45 6-23 * * 6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c "WINDOW=0.05 $APPDIR/scripts/lametro/windowed-event-scrape.sh" >> /tmp/lametro.log
 5,20,35,50 6-23 * * 6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c "WINDOW=0.05 $APPDIR/scripts/lametro/windowed-bill-scrape.sh" >> /tmp/lametro.log
-
-# Person scrape, in lieu of nightly full scrape
-
-5 0 * * 6 datamade $APPDIR/scripts/lametro/person-scrape.sh >> /tmp/lametro.log
