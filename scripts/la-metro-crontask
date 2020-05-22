@@ -2,11 +2,16 @@
 APPDIR=/home/datamade/scrapers-us-municipal
 PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
 
-# --- SUNDAY THROUGH THURSDAY & SATURDAY ---
+# --- SUNDAY THROUGH FRIDAY ---
 
 # UTC: 12:05 am
-# CST: 6:05 pm
-# CDT: 7:05 pm
+# CST: 6:05 pm (previous day)
+# CDT: 7:05 pm (previous day)
+
+# We do not do this scrape on Saturdays because it prevents targeted scrapes
+# from running during the support window. Instead, we rely on support window
+# scrapes to capture updates to events and bills and run a standalone person
+# scrape at this time. (See SATURDAY block, below.)
 
 # Full scrape
 
@@ -53,10 +58,6 @@ PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
 # CST: 6:05 pm
 # CDT: 7:05 pm
 
-# Person scrape, in lieu of nightly full scrape
-
-5 0 * * 5 datamade $APPDIR/scripts/lametro/person-scrape.sh >> /tmp/lametro.log
-
 # --- SATURDAY ---
 
 # UTC: 6:00 am to 11:50 pm Saturday
@@ -67,3 +68,7 @@ PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
 
 0,15,30,45 6-23 * * 6 datamade /usr/bin/flock -n /tmp/metroevents.lock -c "WINDOW=0.05 $APPDIR/scripts/lametro/windowed-event-scrape.sh" >> /tmp/lametro.log
 5,20,35,50 6-23 * * 6 datamade /usr/bin/flock -n /tmp/metrobills.lock -c "WINDOW=0.05 $APPDIR/scripts/lametro/windowed-bill-scrape.sh" >> /tmp/lametro.log
+
+# Person scrape, in lieu of nightly full scrape
+
+5 0 * * 6 datamade $APPDIR/scripts/lametro/person-scrape.sh >> /tmp/lametro.log
