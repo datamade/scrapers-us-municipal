@@ -5,10 +5,6 @@ import lxml.html
 from datetime import datetime
 import pytz
 
-DUPLICATE_EVENT_URLS = ('http://miamidade.gov/wps/Events/EventDetail.jsp?eventID=445731', 
-                        'http://miamidade.gov/wps/Events/EventDetail.jsp?eventID=452515',
-                        'http://miamidade.gov/wps/Events/EventDetail.jsp?eventID=452513')
-
 class MiamidadeEventScraper(Scraper):
 
     def lxmlize(self, url):
@@ -46,7 +42,7 @@ class MiamidadeEventScraper(Scraper):
                 if link in DUPLICATE_EVENT_URLS:
                     continue
 
-                if title == "Mayor's FY 2016-17 Proposed Budget Public Meeting":
+                if title == "Mayor's FY 2020-21 Proposed Budget Public Meeting":
                     continue
 
                 if not description:
@@ -66,11 +62,11 @@ class MiamidadeEventScraper(Scraper):
                 e.add_source(link)
                 yield e
 
-            e = Event(name="Mayor's FY 2016-17 Proposed Budget Public Meeting",
-                      start_time=local_timezone.localize(datetime.strptime('08/08/16 06:00PM', '%m/%d/%y %H:%M%p')),
+            e = Event(name="Mayor's FY 2020-21 Proposed Budget Public Meeting",
+                      start_time=local_timezone.localize(datetime.strptime('09/03/2020 05:00PM', '%m/%d/%y %H:%M%p')),
                       timezone="US/Eastern",
                       location_name='111 NW 1st Street',
-                      description='Pursuant to Section 2-1800A of the County Code, a Public Meeting has been scheduled by the Honorable Carlos A. Gimenez, Mayor, Miami-Dade County, to discuss the FY 2016-17 budget, tax rates, and fee changes.',
+                      description='Pursuant to Section 2-1800A of the County Code, a Public Meeting has been scheduled by the Honorable Carlos A. Gimenez, Mayor, Miami-Dade County, to discuss the FY 2020-21 budget, tax rates, and fee changes.',
                       status='confirmed')
-            e.add_source('http://miamidade.gov/wps/Events/EventDetail.jsp?eventID=447192')
+            e.add_source('http://www8.miamidade.gov/global/calendar/event.page?calendarName=Clerk-of-the-Board&eventID=1046')
             yield e
