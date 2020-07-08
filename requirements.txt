@@ -1,6 +1,6 @@
 django>=2.2,<2.3
 opencivicdata>=3.1.0
-pupa==0.10.1
+https://github.com/opencivicdata/pupa/archive/aa3ae1bafded597fbd8d34e2f723a6e04436f647.zip
 https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
 django-councilmatic==2.5.5
 lxml
