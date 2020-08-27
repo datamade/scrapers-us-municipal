@@ -2,11 +2,6 @@
 APPDIR=/home/datamade/scrapers-us-municipal
 PUPADIR=/home/datamade/.virtualenvs/opencivicdata/bin/pupa
 
-# New York City
-0 5 * * * datamade /usr/bin/flock /tmp/nycscrape.lock -c 'cd $APPDIR && $PUPADIR update nyc >> /tmp/nyc.log 2>&1'
-0,15,30,45 * * * * datamade /usr/bin/flock -n /tmp/nycevents.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/events/_data/ nyc events window=0.05 >> /tmp/nyc.log 2>&1'
-10,25,40,55 * * * * datamade /usr/bin/flock -n /tmp/nycbills.lock -c 'cd $APPDIR && $PUPADIR update --datadir=/cache/bills/_data/ nyc bills window=0.05 >> /tmp/nyc.log 2>&1'
-
 # Chicago
 # Nightly, do a larger scrape and populate production, staging,
 # and the imago API db
