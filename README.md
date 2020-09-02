@@ -38,9 +38,19 @@ git pull upstream master
 git push origin master
 ```
 
+### Scheduling
+
+The Chicago scrapers are scheduled using the crontab in the `scripts/` directory
+of this repository.
+
+The LA Metro scrapers are scheduled via Airflow. The production Airflow instance
+is located at [la-metro-dashboard.datamade.us](https://la-metro-dashboard.datamade.us/).
+DataMade staff can find login credentials under the Metro support email in
+LastPass. The underlying code is in the [`datamade/la-metro-dashboard` repository](https://github.com/datamade/la-metro-dashboard).
+
 ### Deploying changes
 
-This repo uses Travis for continuous integration and deployment. To trigger a production deployment, create and push a tag matching the regular expression at the top of [`.travis.yml`](.travis.yml).
+This repo uses Travis for continuous integration and deployment. To trigger a production deployment, create and push a tag matching the regular expression at the top of [`.travis.yml`](.travis.yml). Pushing a tag will deploy the code to the OCD server (for scrapes scheduled by cron) and create a Docker Hub build in the [`datamade/scrapers-us-municipal` repository](https://hub.docker.com/repository/docker/datamade/scrapers-us-municipal) (for scrapes scheduled by Airflow, which are run in containers).
 
 ## Logging
 

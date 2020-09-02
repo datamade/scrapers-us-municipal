@@ -24,9 +24,5 @@ mv $APP_PATH/scripts/scrapers-us-municipal-crontask /etc/cron.d/scrapers-us-muni
 chown root.root /etc/cron.d/scrapers-us-municipal-crontask
 chmod 644 /etc/cron.d/scrapers-us-municipal-crontask
 
-mv /home/datamade/scrapers-us-municipal/scripts/la-metro-crontask /etc/cron.d/la-metro-crontask
-chown root.root /etc/cron.d/la-metro-crontask
-chmod 644 /etc/cron.d/la-metro-crontask
-
 # Run Migrations
 cd $APP_PATH && DJANGO_SETTINGS_MODULE=pupa.settings $VIRTUALENV/bin/django-admin migrate
