@@ -4,10 +4,6 @@
 # to make sure this pipeline will work on a bare server.
 mkdir -p /home/datamade/scrapers-us-municipal
 
-# Create and update permissions on logfile
-touch /tmp/lametro.log
-chown datamade.www-data /tmp/lametro.log
-
 # Create directory for scraped data
 (mkdir /cache >> /dev/null 2>&1 && chown -R datamade.www-data /cache) || echo 'Cache directory already exists'
 
