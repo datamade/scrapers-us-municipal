@@ -50,7 +50,7 @@ LastPass. The underlying code is in the [`datamade/la-metro-dashboard` repositor
 
 ### Deploying changes
 
-This repo uses Travis for continuous integration and deployment. To trigger a production deployment, create and push a tag matching the regular expression at the top of [`.travis.yml`](.travis.yml). Pushing a tag will deploy the code to the OCD server (for scrapes scheduled by cron) and create a Docker Hub build in the [`datamade/scrapers-us-municipal` repository](https://hub.docker.com/repository/docker/datamade/scrapers-us-municipal) (for scrapes scheduled by Airflow, which are run in containers).
+This repo uses Travis for continuous integration and deployment. To trigger a production deployment, [create and push a tag](https://github.com/datamade/deploy-a-site/blob/8efe413f18383caa0cb5c81373f817afd6a944d7/How-to-deploy-with-continuous-deployment.md#3-deploy-to-production) matching the regular expression at the top of [`.travis.yml`](.travis.yml). Pushing a tag will deploy the code to the OCD server (for scrapes scheduled by cron) and create a Docker Hub build in the [`datamade/scrapers-us-municipal` repository](https://hub.docker.com/repository/docker/datamade/scrapers-us-municipal) (for scrapes scheduled by Airflow, which are run in containers).
 
 ## Logging
 
