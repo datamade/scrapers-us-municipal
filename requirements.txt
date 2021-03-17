@@ -1,8 +1,8 @@
 django>=2.2,<2.3
 opencivicdata>=3.1.0
 
-# Make locations optional
-https://github.com/opencivicdata/pupa/archive/d4b10ac620c6657f69916918585bce65b51eec79.zip
+# Resolve memberships with the same start date
+https://github.com/opencivicdata/pupa/archive/0817852d4694cd49651d01a7b957a022be2d4a4d.zip
 
 https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
 django-councilmatic==2.6.1
