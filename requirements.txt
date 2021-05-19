@@ -1,6 +1,5 @@
 django>=2.2,<2.3
-# Better handling for ingesting subset of divisions
-https://github.com/opencivicdata/python-opencivicdata-django/zipball/master
+opencivicdata>=3.1.0
 
 # Resolve memberships with the same start date
 https://github.com/opencivicdata/pupa/archive/0817852d4694cd49651d01a7b957a022be2d4a4d.zip
