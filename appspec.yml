@@ -12,3 +12,6 @@ hooks:
     - location: scripts/after_install.sh
       timeout: 1000
       runas: root
+
+deploy:
+  deploymentGroupName: production
