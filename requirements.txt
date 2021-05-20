@@ -1,5 +1,6 @@
 django>=2.2,<2.3
-opencivicdata>=3.1.0
+# Better handling for loading divisions from specified CSV
+https://github.com/opencivicdata/python-opencivicdata/archive/master.zip
 
 # Resolve memberships with the same start date
 https://github.com/opencivicdata/pupa/archive/0817852d4694cd49651d01a7b957a022be2d4a4d.zip
