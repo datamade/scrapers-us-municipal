@@ -1,5 +1,5 @@
-municipal-scrapers
-==================
+scrapers-us-municipal
+=====================
 
 [![Build Status](https://travis-ci.org/datamade/scrapers-us-municipal.svg?branch=v0.0.32)](https://travis-ci.org/datamade/scrapers-us-municipal)
 
@@ -28,7 +28,6 @@ git pull origin master
 ```
 
 Commit your local changes, if any. Next, rebase your changes onto upstream master.
-
 
 ```bash
 git pull upstream master
