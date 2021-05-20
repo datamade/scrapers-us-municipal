@@ -9,16 +9,13 @@ from pupa.utils import _make_pseudo_id
 
 from legistar.bills import LegistarBillScraper, LegistarAPIBillScraper
 
-<<<<<<< HEAD
+from .events import LametroEventScraper
+
 try:
     from .secrets import TOKEN
 except:
     TOKEN = None
 
-=======
-from .events import LametroEventScraper
-from .secrets import TOKEN
->>>>>>> b00dea3c5e4e511db6d741116dfd7541dbf15e52
 
 class LametroBillScraper(LegistarAPIBillScraper, Scraper):
     BASE_URL = 'https://webapi.legistar.com/v1/metro'
