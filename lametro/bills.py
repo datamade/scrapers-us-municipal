@@ -34,11 +34,9 @@ class LametroBillScraper(LegistarAPIBillScraper, Scraper):
     def __init__(self, *args, **kwargs):
         '''
         Metro scrapes private (or restricted) bills.
-        Private bills have 'MatterRestrictViewViaWeb' set as True
-        and/or a MatterStatusName of 'Draft' and/or do not appear in the
-        Legistar web interface.
 
         The following properties enable scraping private bills:
+
         :params - URL params that include the secret Metro API Token
 
         :scrape_restricted - a boolean used in `python-legistar-scraper`: it
@@ -56,9 +54,13 @@ class LametroBillScraper(LegistarAPIBillScraper, Scraper):
         self.scrape_restricted = True
 
     def _is_restricted(self, matter):
+        is_board_correspondence = matter['MatterTypeName'] in {'Board Box', 'Board Correspondence'}
+        is_not_sent = matter['MatterStatusName'] != 'Sent'
+
         if (matter['MatterRestrictViewViaWeb'] or
             matter['MatterStatusName'] == 'Draft' or
             matter['MatterBodyName'] == 'TO BE REMOVED' or
+            (is_board_correspondence and is_not_sent) or
             not matter.get('legistar_url')):
             return True
         else:
@@ -216,7 +218,9 @@ class LametroBillScraper(LegistarAPIBillScraper, Scraper):
                 continue
 
             bill_session = self.session(self.toTime(date))
-            bill_type = BILL_TYPES[matter['MatterTypeName']]
+            # Metro uses different classifications than OCD's controlled
+            # vocabulary. We store that under extras -> local_classification.
+            bill_type = None
 
             if identifier.startswith('S'):
                 alternate_identifiers = [identifier]
@@ -368,26 +372,3 @@ ACTION_CLASSIFICATION = {'WITHDRAWN' : 'withdrawal',
                          'FORWARDED DUE TO ABSENCES AND CONFLICTS' : 'committee-passage',
                          'NO ACTION TAKEN': 'filing',
                          'FAILED' : 'failure'}
-
-BILL_TYPES = {'Contract' : None,
-              'Budget' : None,
-              'Program' : None,
-              'Motion / Motion Response' : None,
-              'Policy' : None,
-              'Informational Report' : None,
-              'Fare / Tariff / Service Change' : None,
-              'Agreement' : None,
-              'Oral Report / Presentation' : None,
-              'Resolution' : None,
-              'Project' : None,
-              'Formula Allocation / Local Return' : None,
-              'Federal Legislation / State Legislation (Position)': None,
-              'Plan': None,
-              'Minutes': None,
-              'Ordinance': None,
-              'Ordinance / Administrative Code': None,
-              'Appointment': None,
-              'Public Hearing': None,
-              'Application': None,
-              'Closed Session': None,
-              'Board Correspondence': None}
