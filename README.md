@@ -57,10 +57,10 @@ branch:
 git push origin master:deploy
 ```
 
-Pushing to the `deploy` branch will deploy the code to the OCD server (for
-scrapes scheduled by cron) and create a Docker Hub build in the [`datamade/scrapers-us-municipal`
-repository](https://hub.docker.com/repository/docker/datamade/scrapers-us-municipal)
-(for scrapes scheduled by Airflow, which are run in containers).
+Pushing to the `master` and `deploy` branches will deploy the code to the OCD
+server (for scrapes scheduled by cron) and create a GitHub Container Registry
+build tagged with the relevant branch name (for scrapes scheduled by Airflow,
+which are run in containers).
 
 ## Logging
 
