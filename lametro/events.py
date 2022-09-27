@@ -25,6 +25,7 @@ class UnmatchedEventError(Exception):
 
         super().__init__(message)
 
+
 class LametroEventScraper(LegistarAPIEventScraper, Scraper):
     BASE_URL = 'http://webapi.legistar.com/v1/metro'
     WEB_URL = 'https://metro.legistar.com/'
@@ -63,10 +64,10 @@ class LametroEventScraper(LegistarAPIEventScraper, Scraper):
             assert event.is_partner(partner)
             return partner
 
-        elif event.is_spanish:
-            raise UnmatchedEventError(event)
-
         else:
+            if event.is_spanish:
+                LOGGER.critical("Could not find English event partner.")
+
             return None
 
     def api_events(self, *args, **kwargs):
@@ -119,7 +120,7 @@ class LametroEventScraper(LegistarAPIEventScraper, Scraper):
                     yield partner_event
 
                 elif event_date > spanish_start_date and unpaired_event.is_spanish:
-                    raise UnmatchedEventError(unpaired_event)
+                    LOGGER.critical("Could not find English event partner.")
 
     def _merge_events(self, events):
         english_events = []
@@ -180,11 +181,11 @@ class LametroEventScraper(LegistarAPIEventScraper, Scraper):
             assert not spanish_events  # These should all be merged with an English event.
         except AssertionError:
             unpaired_events = [event for event, _ in spanish_events.values()]
-            raise UnmatchedEventError(unpaired_events)
+            LOGGER.critical(f"Found {len(unpaired_events)} Spanish event(s) without partners.")
 
         return english_events
 
-    def scrape(self, window=None) :
+    def scrape(self, window=None):
         if window and float(window) != 0:
             n_days_ago = datetime.datetime.utcnow() - datetime.timedelta(float(window))
         else:
@@ -464,7 +465,7 @@ class LametroEventScraper(LegistarAPIEventScraper, Scraper):
                         if 'minutes' in each['MatterAttachmentName'].lower()
                     ]
                 except ValueError:
-                    raise ValueError(
+                    LOGGER.critical(
                         "More than one attachment for the approved minutes matter"
                     )
                 else:
@@ -529,3 +530,4 @@ class LAMetroWebEvent(dict):
     @property
     def has_ecomment(self):
         return self['eComment'] != 'Not\xa0available'
+
