@@ -57,8 +57,6 @@ class LametroBillScraper(LegistarAPIBillScraper, Scraper):
         is_board_correspondence = matter['MatterTypeName'] in {'Board Box', 'Board Correspondence'}
         is_not_sent = matter['MatterStatusName'] != 'Sent'
 
-        import pdb
-        pdb.set_trace()
 
         if (matter['MatterRestrictViewViaWeb'] or
             matter['MatterStatusName'] == 'Draft' or
@@ -190,8 +188,6 @@ class LametroBillScraper(LegistarAPIBillScraper, Scraper):
         a window of 0 to scrape all legislation.
         :matter_ids (str) - Comma-separated list of matter IDs to scrape
         '''
-        import pdb
-        pdb.set_trace()
 
         if matter_ids:
             matters = [self.matter(matter_id) for matter_id in matter_ids.split(',')]
@@ -203,8 +199,6 @@ class LametroBillScraper(LegistarAPIBillScraper, Scraper):
             # Scrape all matters, including those without a last-modified date
             matters = self.matters()
 
-        import pdb
-        pdb.set_trace()
 
         n_days_ago = datetime.datetime.utcnow() - datetime.timedelta(float(window))
         for matter in matters:
