@@ -206,6 +206,10 @@ class LametroBillScraper(LegistarAPIBillScraper, Scraper):
             if matter['MatterFile'] in ('2017-0447', 'TMP22-0135'):
                 continue
 
+            bill_is_temporary = matter['MatterFile'].lower().startswith('tmp')
+            if bill_is_temporary:
+                continue
+
             matter_id = matter['MatterId']
 
             date = matter['MatterIntroDate']
