@@ -1,15 +1,11 @@
-django>=2.2,<2.3
-# Better handling for loading divisions from specified CSV
 https://github.com/opencivicdata/python-opencivicdata/archive/master.zip
-
-# Resolve memberships with the same start date
-https://github.com/opencivicdata/pupa/archive/0817852d4694cd49651d01a7b957a022be2d4a4d.zip
-
+https://github.com/opencivicdata/pupa/archive/master.zip
 https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
+django>=2.2,<2.3
 django-councilmatic==2.6.1
 lxml
-sh
-pytest==4.2.0
+sh 
+pytest==5.4.3
 pytest-mock==1.10.1
 requests-mock==1.5.2
 raven==6.10
