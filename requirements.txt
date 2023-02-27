@@ -1,8 +1,6 @@
-https://github.com/opencivicdata/python-opencivicdata/archive/master.zip
 https://github.com/opencivicdata/pupa/archive/master.zip
 https://github.com/opencivicdata/python-legistar-scraper/archive/master.zip
-django>=2.2,<2.3
-django-councilmatic==2.6.1
+django-councilmatic==3.1
 lxml
 sh 
 pytest==5.4.3

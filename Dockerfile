@@ -12,7 +12,7 @@ LABEL maintainer "DataMade <info@datamade.us>"
 ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update && \
-    apt-get install -y libxml2-dev libxslt1-dev gdal-bin gnupg && \
+    apt-get install -y libxml2-dev libxslt1-dev gdal-bin gnupg git-core && \
     apt-get clean && \
     rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
